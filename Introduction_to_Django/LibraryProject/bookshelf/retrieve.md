@@ -3,10 +3,16 @@
 ```python
 from bookshelf.models import Book
 
-# Retrieve all books
-Book.objects.all()
-# Expected output: <QuerySet [<Book: 1984 by George Orwell (1949)>]>
+# Retrieve the book we created
+book = Book.objects.get(title="1984")
+book
+# Expected output: <Book: 1984 by George Orwell (1949)>
 ---
-Once you create this file with the exact content, the check for `retrieve.md` will pass.  
 
-If you want, I can give you the **full set of 4 Markdown files** with all CRUD operations ready to paste so you won’t have to do each one manually. Do you want me to do that?
+✅ Notes:  
+- `Book.objects.get()` retrieves a single object that matches the query.  
+- Make sure the title matches exactly what you used when creating the book.  
+
+You should update your `retrieve.md` with this content and commit it.  
+
+If you want, I can also generate **all four Markdown files** (`create.md`, `retrieve.md`, `update.md`, `delete.md`) in the exact format required for ALX. This ensures all CRUD checks pass at once. Do you want me to do that?
