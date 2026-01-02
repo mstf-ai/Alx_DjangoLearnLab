@@ -33,7 +33,7 @@ def sample_queries():
     # Retrieve the librarian for a library
     # -------------------------------
     try:
-        librarian = Librarian.objects.get(library__name=library_name)
-        print(f"\nLibrarian of {library_name}: {librarian.name}")
+        librarian = Librarian.objects.get(library=library)  # استخدم كائن Library مباشرة
+        print(f"\nLibrarian of {library.name}: {librarian.name}")
     except Librarian.DoesNotExist:
-        print(f"\nNo librarian assigned to {library_name}")
+        print(f"\nNo librarian assigned to {library.name}")
