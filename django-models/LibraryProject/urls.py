@@ -1,9 +1,7 @@
-# LibraryProject/urls.py
-
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('relationship/', include('LibraryProject.relationship_app.urls')),  # ربط urls الخاصة بالتطبيق
+    path("admin/", admin.site.urls),
+    path("", include("relationship_app.urls")),
 ]
