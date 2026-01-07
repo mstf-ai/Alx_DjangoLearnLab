@@ -1,31 +1,20 @@
-"""
-Django settings for LibraryProject project.
-"""
-
 from pathlib import Path
 
-# ---------------------------
-# Base directory of the project
-# ---------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ---------------------------
-# SECURITY WARNING: keep the secret key used in production secret!
-# ---------------------------
-SECRET_KEY = 'django-insecure-replace-this-with-your-own-secret-key'
 
-# ---------------------------
-# SECURITY WARNING: don't run with debug turned on in production!
-# ---------------------------
+# SECURITY WARNING
+SECRET_KEY = 'django-insecure-change-this-key'
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# ---------------------------
-# Application definition
-# ---------------------------
+
+# -----------------------------
+# Applications
+# -----------------------------
 INSTALLED_APPS = [
-    # Django default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,11 +22,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Your apps
-    'bookshelf',
-    'LibraryProject.relationship_app',  # التطبيق داخل مجلد المشروع
+    'relationship_app',
 ]
 
+
+# -----------------------------
+# Middleware
+# -----------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -48,12 +39,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'LibraryProject.urls'
 
+
+# -----------------------------
+# Templates
+# -----------------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # مجلد templates عام (اختياري)
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,11 +62,13 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'LibraryProject.wsgi.application'
 
-# ---------------------------
-# Database (SQLite)
-# ---------------------------
+
+# -----------------------------
+# Database
+# -----------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -78,9 +76,10 @@ DATABASES = {
     }
 }
 
-# ---------------------------
+
+# -----------------------------
 # Password validation
-# ---------------------------
+# -----------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -96,9 +95,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# ---------------------------
+
+# -----------------------------
 # Internationalization
-# ---------------------------
+# -----------------------------
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -107,13 +107,21 @@ USE_I18N = True
 
 USE_TZ = True
 
-# ---------------------------
-# Static files (CSS, JavaScript, Images)
-# ---------------------------
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # يمكنك إنشاء مجلد static لتجنب التحذير
 
-# ---------------------------
-# Default primary key field type
-# ---------------------------
+# -----------------------------
+# Static files
+# -----------------------------
+STATIC_URL = 'static/'
+
+
+# -----------------------------
+# Auth redirects
+# -----------------------------
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+
+# -----------------------------
+# Default primary key field
+# -----------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
