@@ -10,16 +10,17 @@ ALLOWED_HOSTS = []
 
 # التطبيقات المثبتة
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-
-    # تطبيقنا
-    "users",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'users',  # تطبيق المستخدمين
 ]
+
+# باقي إعداداتك العادية (SECRET_KEY, DATABASES, STATIC_URL ...)
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
