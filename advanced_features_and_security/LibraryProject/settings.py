@@ -1,3 +1,4 @@
+# LibraryProject/settings.py
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,11 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'relationship_app',
+    'bookshelf',
 ]
-# settings.py
-AUTH_USER_MODEL = 'bookshelf.CustomUser'
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -70,9 +68,9 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL = 'list_books'
-LOGOUT_REDIRECT_URL = 'login'
+
+# استخدام الـ Custom User Model
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
