@@ -77,7 +77,7 @@ def member_view(request):
     return render(request, 'relationship_app/member_view.html')
 
 # -------------------------
-# Custom Permission Views (correct permission names)
+# Custom Permission Views
 # -------------------------
 @permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book(request):
