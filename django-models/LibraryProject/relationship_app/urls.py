@@ -1,17 +1,17 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import list_books, LibraryDetailView, register
+from . import views
 
 urlpatterns = [
     # -----------------------------
     # Books
     # -----------------------------
-    path("books/", list_books, name="list_books"),
+    path("books/", views.list_books, name="list_books"),
 
     # -----------------------------
     # Library details
     # -----------------------------
-    path("library/<int:pk>/", LibraryDetailView.as_view(), name="library_detail"),
+    path("library/<int:pk>/", views.LibraryDetailView.as_view(), name="library_detail"),
 
     # -----------------------------
     # Authentication
@@ -28,7 +28,7 @@ urlpatterns = [
     ),
     path(
         "register/",
-        register,
+        views.register,
         name="register",
     ),
 ]
