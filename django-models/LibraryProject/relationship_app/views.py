@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login  # << مهم جداً
 from django.views.generic.detail import DetailView
 
 from .models import Book, Library
@@ -44,8 +45,9 @@ def register(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect("login")
+            user = form.save()
+            login(request, user)  # << سجل المستخدم مباشرة بعد التسجيل
+            return redirect("list_books")  # أو أي صفحة تريد تحويل المستخدم إليها
     else:
         form = UserCreationForm()
 
