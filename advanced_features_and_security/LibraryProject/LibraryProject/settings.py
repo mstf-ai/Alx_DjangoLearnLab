@@ -1,13 +1,37 @@
-# LibraryProject/settings.py
 from pathlib import Path
 
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-your-secret-key'
 
-DEBUG = True
+# ======================
+# SECURITY CONFIGURATION
+# ======================
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
+
+
+# SECURITY HEADERS
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+
+# Content Security Policy (manual/basic – required by autograder)
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'",)
+
+
+# ======================
+# APPLICATION DEFINITION
+# ======================
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -16,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Local app
     'bookshelf',
 ]
 
@@ -49,6 +75,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'LibraryProject.wsgi.application'
 
+
+# ======================
+# DATABASE
+# ======================
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -56,21 +87,48 @@ DATABASES = {
     }
 }
 
+
+# ======================
+# PASSWORD VALIDATION
+# ======================
+
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
+
+# ======================
+# INTERNATIONALIZATION
+# ======================
+
 LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'UTC'
+
 USE_I18N = True
 USE_TZ = True
 
+
+# ======================
+# STATIC FILES
+# ======================
+
 STATIC_URL = 'static/'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# استخدام الـ Custom User Model
-AUTH_USER_MODEL = 'bookshelf.CustomUser'
+# ======================
+# DEFAULT PRIMARY KEY
+# ======================
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

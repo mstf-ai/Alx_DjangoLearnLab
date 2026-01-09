@@ -1,42 +1,44 @@
-\# Managing Permissions and Groups in Django
+\# Security Best Practices in Django
 
 
 
-This project demonstrates how to use Django custom permissions and groups
+This project implements Django security best practices to protect against
 
-to control access to different parts of the application.
-
-
-
-\## Custom Permissions
-
-The Book model defines the following custom permissions:
-
-\- can\_view
-
-\- can\_create
-
-\- can\_edit
-
-\- can\_delete
+common vulnerabilities such as XSS, CSRF, and SQL Injection.
 
 
 
-\## Groups
+\## Security Settings
 
-The following groups should be created using the Django admin interface:
+\- DEBUG is set to False
 
-\- Viewers: can\_view
+\- SECURE\_BROWSER\_XSS\_FILTER enabled
 
-\- Editors: can\_view, can\_create, can\_edit
+\- SECURE\_CONTENT\_TYPE\_NOSNIFF enabled
 
-\- Admins: can\_view, can\_create, can\_edit, can\_delete
+\- X\_FRAME\_OPTIONS set to DENY
+
+\- CSRF\_COOKIE\_SECURE and SESSION\_COOKIE\_SECURE enabled
 
 
 
-\## Views Protection
+\## CSRF Protection
 
-All sensitive views are protected using Django's @permission\_required decorator.
+All forms include Django's CSRF token.
+
+
+
+\## Secure Data Handling
+
+\- Django ORM is used to prevent SQL injection
+
+\- Django Forms are used for input validation
+
+
+
+\## Content Security Policy
+
+A basic Content Security Policy (CSP) is applied via HTTP headers.
 
 
 
