@@ -2,7 +2,7 @@
 
 
 
-This application demonstrates how to use Django groups and custom permissions
+This project demonstrates how to use Django custom permissions and groups
 
 to control access to different parts of the application.
 
@@ -10,7 +10,7 @@ to control access to different parts of the application.
 
 \## Custom Permissions
 
-The following permissions are defined in the Book model:
+The Book model defines the following custom permissions:
 
 \- can\_view
 
@@ -24,7 +24,7 @@ The following permissions are defined in the Book model:
 
 \## Groups
 
-The following groups should be created using the Django admin panel:
+The following groups should be created using the Django admin interface:
 
 \- Viewers: can\_view
 
@@ -36,9 +36,7 @@ The following groups should be created using the Django admin panel:
 
 \## Views Protection
 
-Views are protected using Django's @permission\_required decorator to ensure
-
-only authorized users can perform specific actions.
+All sensitive views are protected using Django's @permission\_required decorator.
 
 
 
