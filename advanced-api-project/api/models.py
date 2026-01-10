@@ -4,7 +4,6 @@ from django.db import models
 class Author(models.Model):
     """
     Author model represents a book author.
-    Each author can have multiple books.
     """
     name = models.CharField(max_length=255)
 
@@ -15,14 +14,13 @@ class Author(models.Model):
 class Book(models.Model):
     """
     Book model represents a book written by an author.
-    Each book is linked to one author using a ForeignKey.
     """
     title = models.CharField(max_length=255)
     publication_year = models.IntegerField()
     author = models.ForeignKey(
         Author,
-        related_name='books',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='books'
     )
 
     def __str__(self):
