@@ -1,4 +1,6 @@
-from rest_framework import generics, permissions
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+
 from .models import Book
 from .serializers import BookSerializer
 
@@ -7,44 +9,44 @@ class BookListView(generics.ListAPIView):
     """
     ListView:
     Retrieve all books.
-    Accessible to all users.
+    Public access (read-only).
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class BookDetailView(generics.RetrieveAPIView):
     """
     DetailView:
     Retrieve a single book.
-    Accessible to all users.
+    Public access (read-only).
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class BookCreateView(generics.CreateAPIView):
     """
     CreateView:
     Create a new book.
-    Restricted to authenticated users.
+    Authenticated users only.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
 
 class BookUpdateView(generics.UpdateAPIView):
     """
     UpdateView:
-    Update a book.
-    Restricted to authenticated users.
+    Update an existing book.
+    Authenticated users only.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     lookup_field = None
 
 
@@ -52,9 +54,9 @@ class BookDeleteView(generics.DestroyAPIView):
     """
     DeleteView:
     Delete a book.
-    Restricted to authenticated users.
+    Authenticated users only.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     lookup_field = None
