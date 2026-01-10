@@ -1,30 +1,23 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
-from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
-
 from .models import Book, Author
-
 
 class BookAPITestCase(APITestCase):
     def setUp(self):
-        # مستخدمين
+        # إنشاء مستخدمين
         self.user = User.objects.create_user(username="testuser", password="password123")
         self.admin_user = User.objects.create_superuser(username="admin", password="admin123")
 
-        # token
-        self.token = Token.objects.create(user=self.user)
-        self.admin_token = Token.objects.create(user=self.admin_user)
-
-        # مؤلف وكتب
+        # إنشاء مؤلف وكتب
         self.author = Author.objects.create(name="Author One")
         self.book1 = Book.objects.create(title="Book One", publication_year=2020, author=self.author)
         self.book2 = Book.objects.create(title="Book Two", publication_year=2021, author=self.author)
 
-        # client مع المصادقة
+        # إنشاء client وتسجيل دخول المستخدم العادي
         self.client = APIClient()
-        self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+        self.client.login(username='testuser', password='password123')  # ✅ هذا المطلوب
 
     def test_list_books(self):
         url = reverse('book-list')
@@ -40,11 +33,11 @@ class BookAPITestCase(APITestCase):
         self.assertEqual(Book.objects.count(), 3)
 
     def test_create_book_unauthenticated(self):
-        self.client.force_authenticate(user=None)
+        self.client.logout()  # تسجيل خروج المستخدم
         url = reverse('book-create')
         data = {"title": "Book Three", "publication_year": 2022, "author": self.author.id}
         response = self.client.post(url, data)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)  # DRF يستخدم 403 لمستخدمي session
 
     def test_update_book(self):
         url = reverse('book-update', kwargs={'pk': self.book1.id})
