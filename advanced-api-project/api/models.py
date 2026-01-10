@@ -2,7 +2,8 @@ from django.db import models
 
 class Author(models.Model):
     """
-    Author model.
+    نموذج المؤلف
+    يحتوي على اسم المؤلف
     """
     name = models.CharField(max_length=255)
 
@@ -12,7 +13,8 @@ class Author(models.Model):
 
 class Book(models.Model):
     """
-    Book model with ForeignKey to Author.
+    نموذج الكتاب
+    يحتوي على العنوان وسنة النشر ومرجع إلى المؤلف
     """
     title = models.CharField(max_length=255)
     publication_year = models.IntegerField()
