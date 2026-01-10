@@ -1,5 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Book
 from .serializers import BookSerializer
@@ -8,42 +10,32 @@ from .serializers import BookSerializer
 class BookListView(generics.ListAPIView):
     """
     ListView:
-    Retrieve all books.
-    Public access (read-only).
+    Retrieve all books with filtering, searching, and ordering support.
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['publication_year', 'author', 'title']
+    search_fields = ['title']
+    ordering_fields = ['title', 'publication_year']
+    ordering = ['title']
+
 
 class BookDetailView(generics.RetrieveAPIView):
-    """
-    DetailView:
-    Retrieve a single book.
-    Public access (read-only).
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class BookCreateView(generics.CreateAPIView):
-    """
-    CreateView:
-    Create a new book.
-    Authenticated users only.
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
 
 
 class BookUpdateView(generics.UpdateAPIView):
-    """
-    UpdateView:
-    Update an existing book.
-    Authenticated users only.
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
@@ -51,11 +43,6 @@ class BookUpdateView(generics.UpdateAPIView):
 
 
 class BookDeleteView(generics.DestroyAPIView):
-    """
-    DeleteView:
-    Delete a book.
-    Authenticated users only.
-    """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticated]
